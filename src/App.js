@@ -59,6 +59,20 @@ class App extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const inputs = [
+      {
+        name: "email",
+        value: email,
+        label: "メールアドレス",
+        type: "email"
+      },
+      {
+        name: "password",
+        value: password,
+        label: "パスワード",
+        type: "current-password"
+      }
+    ];
     return (
       <div className="App">
         <header className="App-header">
@@ -68,20 +82,13 @@ class App extends React.Component {
           <form>
             <span ref={node => (this.message = node)} />
             <div style={{ marginTop: "1rem" }}>
-              <InputSet
-                name="email"
-                onChange={this.handleChange}
-                value={email}
-                label="メールアドレス"
-                type="email"
-              />
-              <InputSet
-                name="password"
-                onChange={this.handleChange}
-                value={password}
-                label="パスワード"
-                type="current-password"
-              />
+              {inputs.map(input => (
+                <InputSet
+                  key={input.name}
+                  {...input}
+                  onChange={this.handleChange}
+                />
+              ))}
             </div>
             <button onClick={this.handleSubmit}>送信</button>
           </form>
